@@ -112,4 +112,4 @@ We can see that when using kotlin android plugin with version 1.5.21, there is n
 
 But in kotlin android plugin 1.4.21 and in 1.5.21 with old backend there is `_$_findCachedViewById` generated.
 
-I have put the output apk in folder [outputDebugApp](https://github.com/shenguojun/TestKotlinAndroidSynthetic/tree/main/outputDebugApp) and can decompile to see the difference.
+I have put the output apk in folder [outputDebugApp](https://github.com/shenguojun/TestKotlinAndroidSynthetic/tree/main/outputDebugApp) and can decompile to see the differences.
