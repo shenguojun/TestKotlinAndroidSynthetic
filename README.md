@@ -3,18 +3,29 @@ For illustrate the bug in https://youtrack.jetbrains.com/issue/KT-47733
 
 ## Environment
 * Android Studio
+
 Android Studio Arctic Fox | 2020.3.1 Beta 5
+
 Build #AI-203.7717.56.2031.7479365, built on June 22, 2021
+
 Runtime version: 11.0.10+0-b96-7281165 x86_64
+
 VM: OpenJDK 64-Bit Server VM by JetBrains s.r.o.
+
 macOS 11.4
+
 GC: G1 Young Generation, G1 Old Generation
+
 Memory: 2048M
+
 Cores: 8
+
 Registry: external.system.auto.import.disabled=true, debugger.watches.in.variables=false
+
 Non-Bundled Plugins: Dart, wu.seal.tool.jsontokotlin, org.jetbrains.kotlin, io.flutter
 
 * Jeb 
+
 JEB 3.17.1.202004121849
 
 
