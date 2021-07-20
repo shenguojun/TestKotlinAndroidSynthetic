@@ -78,4 +78,38 @@ JEB 3.17.1.202004121849
 .end method
 ```
 
+8. Revert the kotlin gradle plugin version to 1.5.21
+9. Uncomment below code in [app/build.gradle](https://github.com/shenguojun/TestKotlinAndroidSynthetic/blob/main/app/build.gradle)
+```
+tasks.withType(org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile) {
+    kotlinOptions.useOldBackend = true
+}
+```
+10. Rerun the project and get app-debug.apk in folder app/build/outputs/apk/debug
+11. Decompile the app-debug.apk in Jeb and check MainActivity in package com.sheng.testkotlinversion
+```
+.method protected onCreate(Bundle)V
+          .registers 4
+          .param p1
+          .end param
+00000000  invoke-super        AppCompatActivity->onCreate(Bundle)V, p0, p1
+00000006  const               v0, 0x7F0B001C  # layout:activity_main
+0000000C  invoke-virtual      MainActivity->setContentView(I)V, p0, v0
+00000012  sget                v0, R$id->tv_main:I
+00000016  invoke-virtual      MainActivity->_$_findCachedViewById(I)View, p0, v0
+0000001C  move-result-object  v0
+0000001E  check-cast          v0, TextView
+00000022  const-string        v1, "tv_main"
+00000026  invoke-static       Intrinsics->checkNotNullExpressionValue(Object, String)V, v0, v1
+0000002C  const-string        v1, "hello kotlin!"
+00000030  check-cast          v1, CharSequence
+00000034  invoke-virtual      TextView->setText(CharSequence)V, v0, v1
+0000003A  return-void
+.end method
+```
+
+We can see that when using kotlin android plugin with version 1.5.21, there is no `_$_findCachedViewById` generated.
+
+But in kotlin android plugin 1.4.21 and in 1.5.21 with old backend there is `_$_findCachedViewById` generated.
+
 I have put the output apk in folder [outputDebugApp](https://github.com/shenguojun/TestKotlinAndroidSynthetic/tree/main/outputDebugApp) and can decompile to see the difference.
