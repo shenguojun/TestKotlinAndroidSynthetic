@@ -1,5 +1,5 @@
 # TestKotlinAndroidSynthetic
-For illustrate the bug in https://youtrack.jetbrains.com/issue/KT-47733
+For illustrating the bug in https://youtrack.jetbrains.com/issue/KT-47733
 
 ## Environment
 * Android Studio
