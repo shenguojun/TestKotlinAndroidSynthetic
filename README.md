@@ -51,8 +51,8 @@ override fun onCreate(savedInstanceState: Bundle?) {
     item_list.adapter = adapter
 
     // Access the synthetic view after recyclerview initialize and change the text color
-    // In kotlin 1.4.x because of the view cache, item_text is still the outer text view
-    // But in kotlin 1.5.x without view cache, here actually using findViewById and get the first item in recyclerView
+    // In Kotlin 1.4.x because of the view cache, item_text is still the outer TextView
+    // But in Kotlin 1.5.x without view cache, here actually using findViewById and get the first item in recyclerView
     item_list.post {
         item_text.setTextColor(resources.getColor(android.R.color.holo_purple))
     }
