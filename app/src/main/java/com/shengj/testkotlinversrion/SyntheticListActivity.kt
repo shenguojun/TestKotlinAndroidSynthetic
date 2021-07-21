@@ -15,6 +15,7 @@ class SyntheticListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_synthetic_list)
 
         // Access the synthetic view before recyclerview initialize
+        // @+id/item_text is existing both in list item view and in outer activity layout
         item_text
 
         val adapter = CustomAdapter()
