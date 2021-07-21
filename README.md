@@ -28,6 +28,49 @@ Non-Bundled Plugins: Dart, wu.seal.tool.jsontokotlin, org.jetbrains.kotlin, io.f
 
 JEB 3.17.1.202004121849
 
+## The Problem
+
+One problem we encountered was using Kotlin synthetic with RecyclerView.
+
+In the view tree below, the RecyclerView item view has the same id with the view in activity (No.1 TextView's id is same with No.2 TextView's id).
+
+![](https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/image-20210721154205755.png)
+
+And in the code below, we first access the `item_text` view and then initialize RecyclerView. After RecyclerView has been drawn, we access `item_text` again and change the text color.
+
+```kotlin
+override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_synthetic_list)
+
+    // Access the synthetic view before recyclerview initialize
+    // @+id/item_text is existing both in list item view and in outer activity layout
+    item_text
+
+    val adapter = CustomAdapter()
+    item_list.adapter = adapter
+
+    // Access the synthetic view after recyclerview initialize and change the text color
+    // In kotlin 1.4.x because of the view cache, item_text is still the outer text view
+    // But in kotlin 1.5.x without view cache, here actually using findViewById and get the first item in recyclerView
+    item_list.post {
+        item_text.setTextColor(resources.getColor(android.R.color.holo_purple))
+    }
+}
+```
+
+In Kotlin 1.4.x, we got the result below as expected:
+
+![](https://raw.githubusercontent.com/shenguojun/TestKotlinAndroidSynthetic/main/outputDebugApp/buildUsingKotlin1.4.21/kotlin1.4result.png)
+
+But in Kotlin 1.5.x the old code break:
+
+![](https://raw.githubusercontent.com/shenguojun/TestKotlinAndroidSynthetic/main/outputDebugApp/buildUsingKotlin1.5.21/kotlin1.5result.png)
+
+We know that it's bad practice to write the code above using the same view id in different views within the same activity, but it will at great risk to upgrade Kotlin to 1.5.x as we should go through all the code to find those problems. 
+
+We hope that synthetic behaviour will keep the same as in Kotlin 1.4.x and it's easier to upgrade to 1.5.x without fully testing our code.
+
 
 ## Reproduce Steps
 
@@ -113,3 +156,5 @@ We can see that when using kotlin android plugin with version 1.5.21, there is n
 But in kotlin android plugin 1.4.21 and in 1.5.21 with old backend there is `_$_findCachedViewById` generated.
 
 I have put the output apks in folder [outputDebugApp](https://github.com/shenguojun/TestKotlinAndroidSynthetic/tree/main/outputDebugApp) and can decompile to see the differences.
+
+
