@@ -32,7 +32,7 @@ JEB 3.17.1.202004121849
 
 One problem we encountered was using Kotlin synthetic with RecyclerView.
 
-In the view tree below, the RecyclerView item view has the same id with the view in activity (No.1 TextView's id is same with No.2 TextView's id).
+In the view tree below, the RecyclerView's item view has the same id with the view in activity (No.1 TextView's id is same with No.2 TextView's id).
 
 ![](https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/image-20210721154205755.png)
 
